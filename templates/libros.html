@@ -1,0 +1,116 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Books.co</title>
+        <link rel="stylesheet" href="/static/books.css">
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    </head>
+    <body class="flex flex-col min-h-screen">
+        <header class="container mx-auto h-auto bg-gray-300 bg-opacity-80 lg:mt-5 lg:mb-5 lg:grid lg:grid-cols-2">
+            <div class="lg:col-start-2">
+                <ul class="flex lg:justify-end gap-3 mr-20">
+                    <li class="lg:bg-gray-200 px-1 py-1 text-sm shadow-sm font-medium font-sans tracking-wider  text-gray-600 rounded-full hover:shadow-2xl hover:bg-blue-200"><a href="{{url_for('mostrarLibros')}}">Home</a></li>
+                    <li class="lg:bg-gray-200 px-1 py-1 text-sm shadow-sm font-medium font-sans tracking-wider  text-gray-600 rounded-full hover:shadow-2xl hover:bg-blue-200"><a href="#">About us</a></li>
+                    <li class="lg:bg-gray-200 px-1 py-1 text-sm shadow-sm font-medium font-sans tracking-wider  text-gray-600 rounded-full hover:shadow-2xl hover:bg-blue-200"><a href="#">Contact</a></li>
+                  </ul>
+            </div>
+            <div class="container  mt-5 lg:col-start-1">
+                <img class=" ml-28 lg:ml-48 lg:-mt-20 lg:w-min lg:h-32" src="/static/logo.png" alt="">
+            </div>
+        </header>
+        <main class="flex-grow grid grid-rows-2 place-items-center bg-blue-200 bg-opacity-80">
+          {% block content %}
+            <div>
+                <table class=" rounded-t-lg m-5 w-5/7 mx-auto bg-gray-800 text-gray-200">
+                    <tr class="text-left border-b border-gray-300">
+                        <th class="px-4 py-3">Book</th>
+                        <th class="px-4 py-3">Author</th>
+                        <th class="px-4 py-3">Genre</th>
+                        <th class="px-4 py-3"></th>
+                        <th class="px-4 py-3"></th>
+                    </tr>
+                    {% for libro in libros %}
+                    <tr class="text-left border-b border-gray-300">
+                        <td class="font-sans bg-gray-700 border-b border-gray-600">{{libro.titulo}}</td>
+                        <td class="font-sans bg-gray-700 border-b border-gray-600">{{libro.autor}}</td>
+                        <td class="font-sans bg-gray-700 border-b border-gray-600">{{libro.genero}}</td>
+                        <td>
+                            <a class="ml-2 font-bold font-sans" href="{{url_for('editarLibro', libro_id = libro.id )}}">
+                              <i class="far fa-edit fa-lg"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="ml-1 font-bold font-sans" href="{{url_for('eliminarLibro', libro_id = libro.id )}}">
+                              <i class="fill-current text-red-600 fas fa-trash-alt fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div >
+                <a class="inline-flex items-center justify-center w-11 h-10 mr-2  transition-colors duration-150 bg-green-500 rounded-full focus:shadow-outline hover:bg-green-400" href="{{url_for('nuevoLibro')}}">
+                  <i class=" fill-current text-white fas fa-plus-circle fa-lg"></i>
+                </a>
+            </div>
+            {% endblock %}
+        </main>
+        <footer class=" relative bg-gray-200 bg-opacity-95 pt-20 pb-10 lg:pt-16 lg:pb-3 flex flex-col items-center text-gray-400 text-sm">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-center sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
+                  <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6">
+                    <h5 class="text-xl text-gray-600 font-bold mb-6">Features</h5>
+                    <ul class="list-none footer-links">
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Cool stuff</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Random feature</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Team feature</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Stuff for developers</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
+                    <h5 class="text-xl text-gray-600 font-bold mb-6">About</h5>
+                    <ul class="list-none footer-links">
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Team</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Locations</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Privacy</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Terms</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
+                    <h5 class="text-xl text-gray-600 font-bold mb-6">Contact</h5>
+                    <ul class="list-none footer-links">
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">0-800-4156321</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">Wenceslao Tejerina Norte 783</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#" class="text-gray-600 border-b border-solid border-transparent hover:border-blue-100 hover:text-blue-500">X5800 Río Cuarto, Córdoba</a>
+                      </li>
+                    </ul>
+                  </div>
+                  </div>
+                </div>
+        </footer>
+    </body>
+</html>
